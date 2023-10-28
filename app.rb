@@ -28,7 +28,7 @@ get("/") do
 end
 
 get("/:from_currency") do
-  @original_currency = params.fetch("from_currency")
+  @original_currency = params.fetch("from_currency").strip
 
   api_url = "https://api.exchangerate.host/list?access_key=#{ENV["CURRENCY"]}"
   
@@ -53,7 +53,7 @@ get("/:from_currency/:to_currency") do
   @original_currency = params.fetch("from_currency").strip
   @destination_currency = params.fetch("to_currency").strip #there seems to be some trailing spaces causing an error
 
-  api_url = "https://api.exchangerate.host/convert?access_key=#{ENV["CURRENCY"]}&from=#{@original_currency}&to=#{@destination_currency}&amount=1"
+  api_url = "https://api.exchangerate.host/convert?access_key=#{ENV["CURRENCY"]}&from=#{@original_currency.gsub(" ", "")}&to=#{@destination_currency.gsub(" ", "")}&amount=1"
   raw_data = HTTP.get(api_url)
 
   # convert the raw request to a string
