@@ -50,12 +50,20 @@ get("/:from_currency") do
 end
 
 get("/:from_currency/:to_currency") do
-  @original_currency = params.fetch("from_currency")
-  @destination_currency = params.fetch("to_currency")
+  @original_currency = params.fetch("from_currency").strip
+  @destination_currency = params.fetch("to_currency").strip #there seems to be some trailing spaces causing an error
 
   api_url = "https://api.exchangerate.host/convert?access_key=#{ENV["CURRENCY"]}&from=#{@original_currency}&to=#{@destination_currency}&amount=1"
-  
+  raw_data = HTTP.get(api_url)
+
+  # convert the raw request to a string
+  raw_data_string = raw_data.to_s
+
+  # convert the string to JSON
+  parsed_data = JSON.parse(raw_data_string)
+
   # some more code to parse the URL and render a view template
+  @result = parsed_data["result"]
 
 
     erb(:to_currency)
