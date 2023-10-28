@@ -56,4 +56,7 @@ get("/:from_currency/:to_currency") do
   api_url = "https://api.exchangerate.host/convert?access_key=#{ENV["CURRENCY"]}&from=#{@original_currency}&to=#{@destination_currency}&amount=1"
   
   # some more code to parse the URL and render a view template
+
+
+    erb(:to_currency)
 end
