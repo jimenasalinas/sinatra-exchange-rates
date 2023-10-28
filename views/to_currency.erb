@@ -1,8 +1,19 @@
 <h1>Convert <%= @original_currency %> to <%= @destination_currency %></h1>
 
+<div class="results">
+  <a> 1 <%= @original_currency %> equals <%= @result %>  <%= @destination_currency %>.</a>
+</div>
 
-<a>Go </a><a href="/<%= @original_currency %>">
-  back
-</a><a>.</a>
+<div class="link-back">
+  <a>Go </a><a href="/<%= @original_currency %>">back</a><a>.</a>
+</div>
 
-<a><%= @result %></a>
+<style>
+  .results {
+    margin-bottom: 10px; /* Increase this value to adjust the spacing */
+  }
+
+  .link-back {
+    padding-top: 10px; /* Increase this value to adjust the spacing */
+  }
+</style>
